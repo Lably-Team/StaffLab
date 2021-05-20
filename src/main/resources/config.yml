@@ -6,8 +6,10 @@ perms:
     stafflab: server.stafflab
     freeze: server.freeze
 
-  receive:
+  watch:
     staffchat: server.receive.staffchat
+    vanish: server.receive.vanish
+
 
 
 inventory:

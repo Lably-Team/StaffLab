@@ -62,7 +62,7 @@ public class StaffChatCommand implements CommandExecutor {
 
             default:
                 Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-                    if (senderManager.hasPermission(onlinePlayer, "receive.staffchat")) {
+                    if (senderManager.hasPermission(onlinePlayer, "watch.staffchat")) {
                         return;
                     }
 

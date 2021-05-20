@@ -24,7 +24,7 @@ public class SenderManager {
     private final FileManager configFile;
     private final FileManager messagesFile;
 
-    private InventoryBuilder inventoryBuilder;
+    private InventoryBuilder inventorySaveBuilder;
     private int freezeTaskID;
 
     public SenderManager(PluginCore pluginCore){
@@ -78,6 +78,20 @@ public class SenderManager {
     }
 
     public void freezePlayer(Player target){
+
+        Inventory inventory = target.getInventory();
+        EntityEquipment equipment = target.getEquipment();
+
+        inventorySaveBuilder = InventoryBuilder.create()
+                .setItems(inventory.getContents())
+                .setHelmet(equipment.getHelmet())
+                .setChestplate(equipment.getChestplate())
+                .setLeggings(equipment.getLeggings())
+                .setBoots(equipment.getBoots());
+
+        inventory.clear();
+        equipment.clear();
+
         target.setMetadata("freeze", new FixedMetadataValue(staffLab, true));
         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000000 , 100));
         target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1000000000 , 100));
@@ -92,6 +106,9 @@ public class SenderManager {
     }
 
     public void unFreezePlayer(Player target){
+
+        inventorySaveBuilder.givePlayer(target);
+
         target.removeMetadata("freeze", staffLab);
         target.removePotionEffect(PotionEffectType.SLOW);
         target.setGameMode(GameMode.ADVENTURE);
@@ -120,15 +137,15 @@ public class SenderManager {
         Inventory inventory = target.getInventory();
         EntityEquipment equipment = target.getEquipment();
 
-        inventory.clear();
-        equipment.clear();
-
-        inventoryBuilder = InventoryBuilder.create()
+        inventorySaveBuilder = InventoryBuilder.create()
                 .setItems(inventory.getContents())
                 .setHelmet(equipment.getHelmet())
                 .setChestplate(equipment.getChestplate())
                 .setLeggings(equipment.getLeggings())
                 .setBoots(equipment.getBoots());
+
+        inventory.clear();
+        equipment.clear();
 
         for (int data : serverData.getInventoryData().keySet()){
             inventory.setItem(data, serverData.getInventoryData().get(data).build());
@@ -139,14 +156,14 @@ public class SenderManager {
     public void disableStaffMode(Player target){
 
         target.removeMetadata("staffmode", staffLab);
-        inventoryBuilder.givePlayer(target);
+        inventorySaveBuilder.givePlayer(target);
         sendMessage(target, "staff.disabled");
     }
 
     public void forzeDisableStaffMode(Player target){
 
         target.removeMetadata("staffmode", staffLab);
-        inventoryBuilder.givePlayer(target);
+        inventorySaveBuilder.givePlayer(target);
     }
 
     public boolean isStaffModeEnabled(Player target){

@@ -25,7 +25,7 @@ public class ChatListener implements Listener {
         }
 
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-            if (senderManager.hasPermission(onlinePlayer, "receive.staffchat")) {
+            if (senderManager.hasPermission(onlinePlayer, "watch.staffchat")) {
                 return;
             }
 
