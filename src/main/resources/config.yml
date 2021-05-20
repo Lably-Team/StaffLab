@@ -1,0 +1,31 @@
+
+perms:
+  staff: server.staff
+  staffchat: server.staffchat
+  stafflab: server.stafflab
+  freeze: server.freeze
+
+  receive:
+    staffchat: server.receive.staffchat
+
+
+inventory:
+  freeze:
+    id: 1
+    material: ICE
+
+    title: "&aFreeze!"
+    lore:
+      - "&fClick to freeze a player."
+      - ""
+
+gui:
+  freeze:
+    title: "&aOnline players:"
+    player:
+      material: ICE
+
+      title: "&a%player%"
+      lore:
+        - "&fClick to freeze this player."
+        - ""

@@ -1,0 +1,15 @@
+name: StaffLabCommand
+version: ${project.version}
+main: me.bryangaming.stafflab.StaffLabCommand
+api-version: 1.16
+
+commands:
+  stafflab:
+    description: A stafflab command.
+  staff:
+    description: A staff command.
+  staffchat:
+    description: A staffchat command.
+  freeze:
+    description: A freeze command.
+
