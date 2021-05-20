@@ -27,6 +27,7 @@ public class StaffLabCommand implements CommandExecutor {
 
         if (!senderManager.hasPermission(sender, command.getName())){
             senderManager.sendMessage(sender, "error.no-perms");
+            return false;
         }
 
         files.getConfigFile().reload();

@@ -36,12 +36,12 @@ public class FreezeCommand implements CommandExecutor {
                     ReplaceableBuilder.create("%usage%", TextUtils.createUsage(command.getName(), "<player>")));
             return false;
         }
-        
+
         Player target = Bukkit.getPlayer(args[1]);
 
         if (target == null){
             senderManager.sendMessage(sender, "error.no-online",
-                    ReplaceableBuilder.create("%player%", args[1]);
+                    ReplaceableBuilder.create("%player%", args[1]));
             return false;
         }
 
