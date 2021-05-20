@@ -30,13 +30,14 @@ public class DataModule implements Module {
         this.senderManager = pluginCore.getSenderManager();
         this.staffGuiModeMap = pluginCore.getServerData().getData();
         this.staffInventoryMap = pluginCore.getServerData().getInventoryData();
+
+        staffGuiModeMap.clear();
+        staffInventoryMap.clear();
+
     }
 
     @Override
     public void load() {
-        staffGuiModeMap.clear();
-        staffInventoryMap.clear();
-
         GuiBuilder freezeGUIBuilder = GuiBuilder
                 .create(configFile.getColoredString("gui.freeze.title"), 6);
 
