@@ -1,6 +1,7 @@
-name: StaffLabCommand
+name: StaffLab
 version: ${project.version}
-main: me.bryangaming.stafflab.StaffLabCommand
+main: me.bryangaming.stafflab.StaffLab
+author: BryanGaming
 api-version: 1.16
 
 commands:

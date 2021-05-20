@@ -8,10 +8,11 @@ public class StaffLab extends JavaPlugin {
     public void onEnable(){
         PluginCore pluginCore = new PluginCore(this);
         pluginCore.init();
+        getLogger().info("StaffLab by: " + getDescription().getAuthors().get(0));
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+       getLogger().info("Thanks for using my plugin <3.");
     }
 }
