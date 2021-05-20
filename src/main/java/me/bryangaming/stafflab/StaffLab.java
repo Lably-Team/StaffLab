@@ -13,6 +13,6 @@ public class StaffLab extends JavaPlugin {
 
     @Override
     public void onDisable() {
-       getLogger().info("If you watch this, you are gey.");
+       getLogger().info("Thanks for using my plugin.");
     }
 }
