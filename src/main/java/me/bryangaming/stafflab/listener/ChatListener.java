@@ -13,7 +13,7 @@ public class ChatListener implements Listener {
     private SenderManager senderManager;
 
     public ChatListener(PluginCore pluginCore){
-        this.senderManager = pluginCore.getSenderManager();
+        this.senderManager = pluginCore.getManagers().getSenderManager();
     }
 
     @EventHandler
@@ -24,14 +24,17 @@ public class ChatListener implements Listener {
             return;
         }
 
-        Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
-            if (senderManager.hasPermission(onlinePlayer, "watch.staffchat")) {
-                return;
-            }
+        if (event.getPlayer().hasMetadata("staffchat")) {
+            Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
+                if (senderManager.hasPermission(onlinePlayer, "watch.staffchat")) {
+                    return;
+                }
 
-            senderManager.sendMessage(onlinePlayer, "staffchat.format",
-                    ReplaceableBuilder.create("%player%", event.getPlayer().getName()),
-                    ReplaceableBuilder.create("%message%", String.join(" ", event.getMessage())));
-        });
+
+                senderManager.sendMessage(onlinePlayer, "staffchat.format",
+                        ReplaceableBuilder.create("%player%", event.getPlayer().getName()),
+                        ReplaceableBuilder.create("%message%", String.join(" ", event.getMessage())));
+            });
+        }
     }
 }

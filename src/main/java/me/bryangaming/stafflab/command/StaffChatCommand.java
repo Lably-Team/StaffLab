@@ -19,7 +19,7 @@ public class StaffChatCommand implements CommandExecutor {
 
     public StaffChatCommand(PluginCore pluginCore){
         this.staffLab = pluginCore.getPlugin();
-        this.senderManager = pluginCore.getSenderManager();
+        this.senderManager = pluginCore.getManagers().getSenderManager();
     }
 
     @Override

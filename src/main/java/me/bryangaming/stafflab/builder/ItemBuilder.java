@@ -50,6 +50,9 @@ public class ItemBuilder {
     }
 
     public void callAction(InventoryClickEvent event){
+        if (action == null){
+            return;
+        }
         action.accept(event);
     }
 

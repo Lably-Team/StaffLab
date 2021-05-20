@@ -20,6 +20,13 @@ freeze:
   command:
     - ban %player%
 
+vanish:
+  player:
+    enabled: "&a[Server] &8| &fYou have been vanished."
+    disabled: "&a[Server] &8| &fYou have been unvanished."
+  target:
+    enabled: "&a[Server] &8| &a%player% &fhave been vanished."
+    disabled: "&a[Server] &8| &a%player% &fhave been unvanished."
 unfreeze:
   target: "&a[Server] &8| &fYou unfroze &a%player%&f."
   message: "&a[Server] &8| &fYou have been unfrozen."

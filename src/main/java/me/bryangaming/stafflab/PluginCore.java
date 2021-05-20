@@ -7,7 +7,7 @@ import me.bryangaming.stafflab.data.ServerData;
 import me.bryangaming.stafflab.loader.CommandLoader;
 import me.bryangaming.stafflab.loader.EventLoader;
 import me.bryangaming.stafflab.loader.file.FileLoader;
-import me.bryangaming.stafflab.managers.SenderManager;
+import me.bryangaming.stafflab.managers.ManagerCore;
 
 public class PluginCore implements Core{
 
@@ -16,7 +16,7 @@ public class PluginCore implements Core{
     private FileLoader fileLoader;
 
     private ServerData serverData;
-    private SenderManager senderManager;
+    private ManagerCore managerCore;
 
     public PluginCore(StaffLab staffLab){
         this.staffLab = staffLab;
@@ -27,7 +27,9 @@ public class PluginCore implements Core{
         fileLoader = new FileLoader(staffLab);
 
         serverData = new ServerData();
-        senderManager = new SenderManager(this);
+
+        managerCore = new ManagerCore(this);
+        managerCore.load();
 
         initLoaders(
                 new CommandLoader(this),
@@ -51,8 +53,8 @@ public class PluginCore implements Core{
         return serverData;
     }
 
-    public SenderManager getSenderManager(){
-        return senderManager;
+    public ManagerCore getManagers(){
+        return managerCore;
     }
 
     public FileLoader getFiles(){

@@ -1,7 +1,8 @@
 package me.bryangaming.stafflab.listener;
 
 import me.bryangaming.stafflab.PluginCore;
-import me.bryangaming.stafflab.managers.SenderManager;
+import me.bryangaming.stafflab.managers.FreezeManager;
+import me.bryangaming.stafflab.managers.StaffModeManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,10 +10,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class QuitListener implements Listener {
 
-    private final SenderManager senderManager;
+    private final FreezeManager freezeModeManager;
+    private final StaffModeManager staffModeManager;
 
     public QuitListener(PluginCore pluginCore) {
-        this.senderManager = pluginCore.getSenderManager();
+        this.freezeModeManager = pluginCore.getManagers().getFreezeManager();
+        this.staffModeManager = pluginCore.getManagers().getStaffModeManager();
 
     }
 
@@ -21,12 +24,12 @@ public class QuitListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (senderManager.isStaffModeEnabled(player)){
-            senderManager.forzeDisableStaffMode(player);
+        if (staffModeManager.isStaffModeEnabled(player)){
+            staffModeManager.forzeDisableStaffMode(player);
         }
 
-        if (senderManager.isFrozen(player)){
-            senderManager.punishFrozenPlayer(player);
+        if (player.hasMetadata("freeze")){
+            freezeModeManager.punishFrozenPlayer(player);
         }
     }
 }

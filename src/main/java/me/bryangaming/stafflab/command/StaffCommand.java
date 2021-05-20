@@ -3,6 +3,7 @@ package me.bryangaming.stafflab.command;
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.builder.ReplaceableBuilder;
 import me.bryangaming.stafflab.managers.SenderManager;
+import me.bryangaming.stafflab.managers.StaffModeManager;
 import me.bryangaming.stafflab.utils.TextUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,11 +13,14 @@ import org.bukkit.entity.Player;
 public class StaffCommand implements CommandExecutor {
 
     private PluginCore pluginCore;
-    private SenderManager senderManager;
+
+    private final SenderManager senderManager;
+    private final StaffModeManager staffModeManager;
 
     public StaffCommand(PluginCore pluginCore){
         this.pluginCore = pluginCore;
-        this.senderManager = pluginCore.getSenderManager();
+        this.senderManager = pluginCore.getManagers().getSenderManager();
+        this.staffModeManager = pluginCore.getManagers().getStaffModeManager();
     }
 
     @Override
@@ -40,10 +44,10 @@ public class StaffCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (!senderManager.isStaffModeEnabled(player)){
-            senderManager.enableStaffMode(player);
+        if (!staffModeManager.isStaffModeEnabled(player)){
+            staffModeManager.enableStaffMode(player);
         }else{
-            senderManager.disableStaffMode(player);
+            staffModeManager.disableStaffMode(player);
         }
         return false;
     }

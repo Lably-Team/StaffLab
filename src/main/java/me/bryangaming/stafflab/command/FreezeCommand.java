@@ -2,6 +2,7 @@ package me.bryangaming.stafflab.command;
 
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.builder.ReplaceableBuilder;
+import me.bryangaming.stafflab.managers.FreezeManager;
 import me.bryangaming.stafflab.managers.SenderManager;
 import me.bryangaming.stafflab.utils.TextUtils;
 import org.bukkit.Bukkit;
@@ -13,9 +14,11 @@ import org.bukkit.entity.Player;
 public class FreezeCommand implements CommandExecutor {
 
     private final SenderManager senderManager;
+    private final FreezeManager freezeManager;
 
     public FreezeCommand(PluginCore pluginCore){
-        this.senderManager = pluginCore.getSenderManager();
+        this.senderManager = pluginCore.getManagers().getSenderManager();
+        this.freezeManager = pluginCore.getManagers().getFreezeManager();
     }
 
     @Override
@@ -45,12 +48,12 @@ public class FreezeCommand implements CommandExecutor {
             return false;
         }
 
-        if (!senderManager.isFrozen(target)) {
-            senderManager.freezePlayer(target);
+        if (!target.hasMetadata("freeze")) {
+            freezeManager.freezePlayer(target);
             senderManager.sendMessage(sender, "freeze.target",
                     ReplaceableBuilder.create("%player%", target.getName()));
         }else{
-            senderManager.unFreezePlayer(target);
+            freezeManager.unFreezePlayer(target);
             senderManager.sendMessage(sender, "unfreeze.target",
                     ReplaceableBuilder.create("%player%", target.getName()));
         }

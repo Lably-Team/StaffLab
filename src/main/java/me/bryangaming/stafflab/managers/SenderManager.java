@@ -7,14 +7,8 @@ import me.bryangaming.stafflab.builder.ReplaceableBuilder;
 import me.bryangaming.stafflab.data.ServerData;
 import me.bryangaming.stafflab.loader.file.FileManager;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class SenderManager {
 
@@ -26,6 +20,7 @@ public class SenderManager {
 
     private InventoryBuilder inventorySaveBuilder;
     private int freezeTaskID;
+
 
     public SenderManager(PluginCore pluginCore){
         this.staffLab = pluginCore.getPlugin();
@@ -73,101 +68,26 @@ public class SenderManager {
         return sender.hasPermission(permsPath);
     }
 
-    public boolean isFrozen(Player player){
-        return player.hasMetadata("freeze");
-    }
-
-    public void freezePlayer(Player target){
-
-        Inventory inventory = target.getInventory();
-        EntityEquipment equipment = target.getEquipment();
-
-        inventorySaveBuilder = InventoryBuilder.create()
-                .setItems(inventory.getContents())
-                .setHelmet(equipment.getHelmet())
-                .setChestplate(equipment.getChestplate())
-                .setLeggings(equipment.getLeggings())
-                .setBoots(equipment.getBoots());
-
-        inventory.clear();
-        equipment.clear();
-
-        target.setMetadata("freeze", new FixedMetadataValue(staffLab, true));
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000000 , 100));
-        target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1000000000 , 100));
-        target.setGameMode(GameMode.ADVENTURE);
-        target.setCanPickupItems(false);
-        freezeTaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(staffLab, new Runnable() {
-            @Override
-            public void run() {
-                sendMessage(target, "freeze.message");
+    public void vanishPlayer(Player target) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (hasPermission(player, "watch.vanish")) {
+                continue;
             }
-        },20,20);
+
+            player.hidePlayer(staffLab, target);
+        }
+        serverData.addVanishedPlayer(target);
     }
 
-    public void unFreezePlayer(Player target){
-
-        inventorySaveBuilder.givePlayer(target);
-
-        target.removeMetadata("freeze", staffLab);
-        target.removePotionEffect(PotionEffectType.SLOW);
-        target.setGameMode(GameMode.ADVENTURE);
-        target.setCanPickupItems(true);
-        Bukkit.getScheduler().cancelTask(freezeTaskID);
-        sendMessage(target, "unfreeze.message");
-    }
-
-    public void punishFrozenPlayer(Player target){
-        target.removeMetadata("freeze", staffLab);
-        target.removePotionEffect(PotionEffectType.SLOW);
-        target.setGameMode(GameMode.ADVENTURE);
-        target.setCanPickupItems(true);
-        Bukkit.getScheduler().cancelTask(freezeTaskID);
-        for (String commands : configFile.getColoredStringList("freeze.command")){
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commands
-                    .replace("%player%", target.getName()));
+    public void unVanishPlayer(Player target){
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.showPlayer(staffLab, target);
         }
     }
 
-
-    public void enableStaffMode(Player target){
-
-        target.setMetadata("staffmode", new FixedMetadataValue(staffLab, true));
-
-        Inventory inventory = target.getInventory();
-        EntityEquipment equipment = target.getEquipment();
-
-        inventorySaveBuilder = InventoryBuilder.create()
-                .setItems(inventory.getContents())
-                .setHelmet(equipment.getHelmet())
-                .setChestplate(equipment.getChestplate())
-                .setLeggings(equipment.getLeggings())
-                .setBoots(equipment.getBoots());
-
-        inventory.clear();
-        equipment.clear();
-
-        for (int data : serverData.getInventoryData().keySet()){
-            inventory.setItem(data, serverData.getInventoryData().get(data).build());
-        }
-        sendMessage(target, "staff.enabled");
+    public boolean isPlayerVanished(Player target){
+        return serverData.isPlayerVanished(target);
     }
 
-    public void disableStaffMode(Player target){
-
-        target.removeMetadata("staffmode", staffLab);
-        inventorySaveBuilder.givePlayer(target);
-        sendMessage(target, "staff.disabled");
-    }
-
-    public void forzeDisableStaffMode(Player target){
-
-        target.removeMetadata("staffmode", staffLab);
-        inventorySaveBuilder.givePlayer(target);
-    }
-
-    public boolean isStaffModeEnabled(Player target){
-        return target.hasMetadata("staffmode");
-    }
 
 }

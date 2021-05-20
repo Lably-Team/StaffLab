@@ -5,7 +5,9 @@ import me.bryangaming.stafflab.StaffLab;
 import me.bryangaming.stafflab.api.Module;
 import me.bryangaming.stafflab.builder.GuiBuilder;
 import me.bryangaming.stafflab.builder.ItemBuilder;
+import me.bryangaming.stafflab.data.ServerData;
 import me.bryangaming.stafflab.loader.file.FileManager;
+import me.bryangaming.stafflab.managers.FreezeManager;
 import me.bryangaming.stafflab.managers.SenderManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,7 +20,11 @@ public class DataModule implements Module {
 
     private final StaffLab staffLab;
     private final FileManager configFile;
+
     private final SenderManager senderManager;
+    private final FreezeManager freezeManager;
+
+    private final ServerData serverData;
 
     private final Map<String, GuiBuilder> staffGuiModeMap;
     private final Map<Integer, ItemBuilder> staffInventoryMap;
@@ -27,9 +33,12 @@ public class DataModule implements Module {
         this.staffLab = pluginCore.getPlugin();
         this.configFile = pluginCore.getFiles().getConfigFile();
 
-        this.senderManager = pluginCore.getSenderManager();
-        this.staffGuiModeMap = pluginCore.getServerData().getData();
-        this.staffInventoryMap = pluginCore.getServerData().getInventoryData();
+        this.senderManager = pluginCore.getManagers().getSenderManager();
+        this.freezeManager = pluginCore.getManagers().getFreezeManager();
+
+        this.serverData = pluginCore.getServerData();
+        this.staffGuiModeMap = serverData.getData();
+        this.staffInventoryMap = serverData.getInventoryData();
 
         staffGuiModeMap.clear();
         staffInventoryMap.clear();
@@ -57,12 +66,12 @@ public class DataModule implements Module {
                                         .setName(configFile.getColoredString("gui.freeze.player.title")
                                                 .replace("%player%", player.getName()))
                                         .setLore(configFile.getColoredStringList("gui.freeze.player.lore"))
-                                        .setAction(onlinePlayer -> senderManager.freezePlayer(player)));
+                                        .setAction(onlinePlayer -> freezeManager.freezePlayer(player)));
                     }
                     event.getWhoClicked().openInventory(freezeGUIBuilder.build());
                 });
 
-        staffInventoryMap.put(configFile.getInt("inventory.freeze.id"), freezeItemBuilder);
-        staffGuiModeMap.put("staffguimode", freezeGUIBuilder);
+        serverData.addInventory(configFile.getInt("inventory.freeze.id"), freezeItemBuilder);
+        serverData.putGui("staffguimode", freezeGUIBuilder);
     }
 }

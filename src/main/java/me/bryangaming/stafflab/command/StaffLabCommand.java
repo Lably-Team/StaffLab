@@ -19,7 +19,7 @@ public class StaffLabCommand implements CommandExecutor {
         this.pluginCore = pluginCore;
 
         this.files = pluginCore.getFiles();
-        this.senderManager = pluginCore.getSenderManager();
+        this.senderManager = pluginCore.getManagers().getSenderManager();
     }
 
     @Override
