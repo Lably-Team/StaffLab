@@ -4,6 +4,7 @@ import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.builder.ReplaceableBuilder;
 import me.bryangaming.stafflab.managers.SenderManager;
 import me.bryangaming.stafflab.utils.TextUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -35,13 +36,23 @@ public class FreezeCommand implements CommandExecutor {
                     ReplaceableBuilder.create("%usage%", TextUtils.createUsage(command.getName(), "<player>")));
             return false;
         }
+        
+        Player target = Bukkit.getPlayer(args[1]);
 
-        Player player = (Player) sender;
+        if (target == null){
+            senderManager.sendMessage(sender, "error.no-online",
+                    ReplaceableBuilder.create("%player%", args[1]);
+            return false;
+        }
 
-        if (!senderManager.isFrozen(player)) {
-            senderManager.freezePlayer(sender, player);
+        if (!senderManager.isFrozen(target)) {
+            senderManager.freezePlayer(target);
+            senderManager.sendMessage(sender, "freeze.target",
+                    ReplaceableBuilder.create("%player%", target.getName()));
         }else{
-            senderManager.unFreezePlayer(sender, player);
+            senderManager.unFreezePlayer(target);
+            senderManager.sendMessage(sender, "unfreeze.target",
+                    ReplaceableBuilder.create("%player%", target.getName()));
         }
         return false;
     }

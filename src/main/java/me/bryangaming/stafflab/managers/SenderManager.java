@@ -77,15 +77,12 @@ public class SenderManager {
         return player.hasMetadata("freeze");
     }
 
-    public void freezePlayer(CommandSender sender, Player target){
+    public void freezePlayer(Player target){
         target.setMetadata("freeze", new FixedMetadataValue(staffLab, true));
         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000000 , 100));
         target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1000000000 , 100));
         target.setGameMode(GameMode.ADVENTURE);
         target.setCanPickupItems(false);
-
-        sendMessage(sender, "freeze.target",
-                ReplaceableBuilder.create("%player%", target.getName()));
         freezeTaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(staffLab, new Runnable() {
             @Override
             public void run() {
@@ -94,15 +91,12 @@ public class SenderManager {
         },20,20);
     }
 
-    public void unFreezePlayer(CommandSender sender, Player target){
+    public void unFreezePlayer(Player target){
         target.removeMetadata("freeze", staffLab);
         target.removePotionEffect(PotionEffectType.SLOW);
         target.setGameMode(GameMode.ADVENTURE);
         target.setCanPickupItems(true);
         Bukkit.getScheduler().cancelTask(freezeTaskID);
-        sendMessage(sender, "unfreeze.target",
-                ReplaceableBuilder.create("%player%", target.getName()));
-
         sendMessage(target, "unfreeze.message");
     }
 

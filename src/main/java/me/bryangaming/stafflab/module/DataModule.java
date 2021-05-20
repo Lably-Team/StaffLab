@@ -6,6 +6,7 @@ import me.bryangaming.stafflab.api.Module;
 import me.bryangaming.stafflab.builder.GuiBuilder;
 import me.bryangaming.stafflab.builder.ItemBuilder;
 import me.bryangaming.stafflab.loader.file.FileManager;
+import me.bryangaming.stafflab.managers.SenderManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ public class DataModule implements Module {
 
     private final StaffLab staffLab;
     private final FileManager configFile;
+    private final SenderManager senderManager;
 
     private final Map<String, GuiBuilder> staffGuiModeMap;
     private final Map<Integer, ItemBuilder> staffInventoryMap;
@@ -25,6 +27,7 @@ public class DataModule implements Module {
         this.staffLab = pluginCore.getPlugin();
         this.configFile = pluginCore.getFiles().getConfigFile();
 
+        this.senderManager = pluginCore.getSenderManager();
         this.staffGuiModeMap = pluginCore.getServerData().getData();
         this.staffInventoryMap = pluginCore.getServerData().getInventoryData();
     }
@@ -53,7 +56,7 @@ public class DataModule implements Module {
                                         .setName(configFile.getColoredString("gui.freeze.player.title")
                                                 .replace("%player%", player.getName()))
                                         .setLore(configFile.getColoredStringList("gui.freeze.player.lore"))
-                                        .setAction(onlinePlayer -> Bukkit.dispatchCommand(event.getWhoClicked(), "freeze " + player.getName())));
+                                        .setAction(onlinePlayer -> senderManager.));
                     }
                     event.getWhoClicked().openInventory(guiBuilder.build());
                 }));
