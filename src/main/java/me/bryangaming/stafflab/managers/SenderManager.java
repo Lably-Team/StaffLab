@@ -79,7 +79,8 @@ public class SenderManager {
 
     public void freezePlayer(CommandSender sender, Player target){
         target.setMetadata("freeze", new FixedMetadataValue(staffLab, true));
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000000 , 10));
+        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000000 , 100));
+        target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1000000000 , 100));
         target.setGameMode(GameMode.ADVENTURE);
         target.setCanPickupItems(false);
 
