@@ -1,9 +1,10 @@
 
 perms:
-  staff: server.staff
-  staffchat: server.staffchat
-  stafflab: server.stafflab
-  freeze: server.freeze
+  commands:
+    staff: server.staff
+    staffchat: server.staffchat
+    stafflab: server.stafflab
+    freeze: server.freeze
 
   receive:
     staffchat: server.receive.staffchat

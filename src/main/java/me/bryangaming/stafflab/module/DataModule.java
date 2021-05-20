@@ -37,10 +37,10 @@ public class DataModule implements Module {
         staffGuiModeMap.clear();
         staffInventoryMap.clear();
 
-        GuiBuilder guiBuilder = GuiBuilder
+        GuiBuilder freezeGUIBuilder = GuiBuilder
                 .create(configFile.getColoredString("gui.freeze.title"), 6);
 
-        staffInventoryMap.put(configFile.getInt("inventory.freeze.id"), ItemBuilder
+        ItemBuilder freezeItemBuilder = ItemBuilder
                 .create(Material.getMaterial(configFile.getString("inventory.freeze.material")))
                 .setName(configFile.getColoredString("inventory.freeze.title"))
                 .setLore(configFile.getColoredStringList("inventory.freeeze.lore"))
@@ -48,9 +48,9 @@ public class DataModule implements Module {
 
                     event.getWhoClicked().setMetadata("staffguimode", new FixedMetadataValue(staffLab, "freeze"));
 
-                    guiBuilder.clear();
+                    freezeGUIBuilder.clear();
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        guiBuilder.addItem(
+                        freezeGUIBuilder.addItem(
                                 ItemBuilder
                                         .create(Material.getMaterial(configFile.getString("gui.freeze.player.material")))
                                         .setName(configFile.getColoredString("gui.freeze.player.title")
@@ -58,10 +58,10 @@ public class DataModule implements Module {
                                         .setLore(configFile.getColoredStringList("gui.freeze.player.lore"))
                                         .setAction(onlinePlayer -> senderManager.freezePlayer(player)));
                     }
-                    event.getWhoClicked().openInventory(guiBuilder.build());
-                }));
+                    event.getWhoClicked().openInventory(freezeGUIBuilder.build());
+                });
 
-
-        staffGuiModeMap.put("staffguimode", guiBuilder);
+        staffInventoryMap.put(configFile.getInt("inventory.freeze.id"), freezeItemBuilder);
+        staffGuiModeMap.put("staffguimode", freezeGUIBuilder);
     }
 }

@@ -25,7 +25,7 @@ public class StaffLabCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!senderManager.hasPermission(sender, command.getName())){
+        if (!senderManager.hasPermission(sender, "commands." + command.getName())){
             senderManager.sendMessage(sender, "error.no-perms");
             return false;
         }

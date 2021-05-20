@@ -30,7 +30,7 @@ public class StaffChatCommand implements CommandExecutor {
             return false;
         }
 
-        if (!senderManager.hasPermission(sender, command.getName())){
+        if (!senderManager.hasPermission(sender, "commands." + command.getName())){
             senderManager.sendMessage(sender, "error.no-perms");
             return false;
         }
