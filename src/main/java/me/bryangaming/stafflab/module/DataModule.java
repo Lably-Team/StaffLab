@@ -56,7 +56,7 @@ public class DataModule implements Module {
                                         .setName(configFile.getColoredString("gui.freeze.player.title")
                                                 .replace("%player%", player.getName()))
                                         .setLore(configFile.getColoredStringList("gui.freeze.player.lore"))
-                                        .setAction(onlinePlayer -> senderManager.));
+                                        .setAction(onlinePlayer -> senderManager.freezePlayer(player)));
                     }
                     event.getWhoClicked().openInventory(guiBuilder.build());
                 }));
