@@ -18,10 +18,6 @@ public class SenderManager {
     private final FileManager configFile;
     private final FileManager messagesFile;
 
-    private InventoryBuilder inventorySaveBuilder;
-    private int freezeTaskID;
-
-
     public SenderManager(PluginCore pluginCore){
         this.staffLab = pluginCore.getPlugin();
 
@@ -68,26 +64,6 @@ public class SenderManager {
         return sender.hasPermission(permsPath);
     }
 
-    public void vanishPlayer(Player target) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (hasPermission(player, "watch.vanish")) {
-                continue;
-            }
-
-            player.hidePlayer(staffLab, target);
-        }
-        serverData.addVanishedPlayer(target);
-    }
-
-    public void unVanishPlayer(Player target){
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.showPlayer(staffLab, target);
-        }
-    }
-
-    public boolean isPlayerVanished(Player target){
-        return serverData.isPlayerVanished(target);
-    }
 
 
 }

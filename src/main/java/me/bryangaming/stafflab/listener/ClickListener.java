@@ -3,8 +3,10 @@ package me.bryangaming.stafflab.listener;
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.builder.GuiBuilder;
 import me.bryangaming.stafflab.builder.ItemBuilder;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Map;

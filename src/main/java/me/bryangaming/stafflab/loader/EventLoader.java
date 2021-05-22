@@ -5,6 +5,7 @@ import me.bryangaming.stafflab.StaffLab;
 import me.bryangaming.stafflab.api.Loader;
 import me.bryangaming.stafflab.listener.ChatListener;
 import me.bryangaming.stafflab.listener.ClickListener;
+import me.bryangaming.stafflab.listener.TargetListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -22,7 +23,8 @@ public class EventLoader implements Loader {
         registerEvents(
                 new ClickListener(pluginCore),
                 new ClickListener(pluginCore),
-                new ChatListener(pluginCore));
+                new ChatListener(pluginCore),
+                new TargetListener(pluginCore));
     }
 
     public void registerEvents(Listener... listeners){

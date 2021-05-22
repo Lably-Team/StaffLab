@@ -36,12 +36,6 @@ public class StaffCommand implements CommandExecutor {
             return false;
         }
 
-        if (args.length < 1){
-            senderManager.sendMessage(sender, "error.no-args",
-                    ReplaceableBuilder.create("%usage%", TextUtils.createUsage(command.getName(), args)));
-            return false;
-        }
-
         Player player = (Player) sender;
 
         if (!staffModeManager.isStaffModeEnabled(player)){

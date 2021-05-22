@@ -2,10 +2,7 @@ package me.bryangaming.stafflab.loader;
 
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.api.Loader;
-import me.bryangaming.stafflab.command.FreezeCommand;
-import me.bryangaming.stafflab.command.StaffChatCommand;
-import me.bryangaming.stafflab.command.StaffCommand;
-import me.bryangaming.stafflab.command.StaffLabCommand;
+import me.bryangaming.stafflab.command.*;
 import org.bukkit.Bukkit;
 
 public class CommandLoader implements Loader {
@@ -22,6 +19,7 @@ public class CommandLoader implements Loader {
         Bukkit.getPluginCommand("stafflab").setExecutor(new StaffLabCommand(pluginCore));
         Bukkit.getPluginCommand("staffchat").setExecutor(new StaffChatCommand(pluginCore));
         Bukkit.getPluginCommand("freeze").setExecutor(new FreezeCommand(pluginCore));
+        Bukkit.getPluginCommand("vanish").setExecutor(new VanishCommand(pluginCore));
 
     }
 }

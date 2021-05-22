@@ -37,7 +37,7 @@ public class StaffChatCommand implements CommandExecutor {
 
         if (args.length < 1){
             senderManager.sendMessage(sender, "error.no-args",
-                    ReplaceableBuilder.create("%usage%", TextUtils.createUsage(command.getName(), args)));
+                    ReplaceableBuilder.create("%usage%", TextUtils.createUsage(command.getName(), "<text>")));
             return false;
         }
         Player player = (Player) sender;

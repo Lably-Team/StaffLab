@@ -5,6 +5,7 @@ import me.bryangaming.stafflab.StaffLab;
 import me.bryangaming.stafflab.builder.InventoryBuilder;
 import me.bryangaming.stafflab.data.ServerData;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;

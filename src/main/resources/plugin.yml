@@ -13,4 +13,6 @@ commands:
     description: A staffchat command.
   freeze:
     description: A freeze command.
+  vanish:
+    description: A vanish command.
 
