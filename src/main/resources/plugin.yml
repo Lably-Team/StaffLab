@@ -15,4 +15,5 @@ commands:
     description: A freeze command.
   vanish:
     description: A vanish command.
-
+  invsee:
+    description: A invsee command.

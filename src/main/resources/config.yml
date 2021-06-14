@@ -19,9 +19,34 @@ inventory:
 
     title: "&aFreeze!"
     lore:
+      - ""
       - "&fClick to freeze a player."
       - ""
+  vanish:
+    id: 3
+    material: EMERALD_BLOCK
 
+    title: "&aVanish!"
+    lore:
+      - ""
+      - "&eClick to toggle vanish!"
+  random-tp:
+    id: 5
+    material: REDSTONE_BLOCK
+
+    title: "&cRandom TP!"
+    lore:
+      - ""
+      - "&eClick to teleport to a random player!"
+
+  invsee:
+    id: 7
+    material: GOLD_BLOCK
+
+    title: "&aInvsee!"
+    lore:
+      - ""
+      - "&eClick to see a inventory of player!"
 gui:
   freeze:
     title: "&aOnline players:"

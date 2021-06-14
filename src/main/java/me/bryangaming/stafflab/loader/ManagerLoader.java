@@ -1,8 +1,9 @@
-package me.bryangaming.stafflab.managers;
+package me.bryangaming.stafflab.loader;
 
 import me.bryangaming.stafflab.PluginCore;
+import me.bryangaming.stafflab.managers.*;
 
-public class ManagerCore {
+public class ManagerLoader {
 
     private final PluginCore pluginCore;
 
@@ -10,8 +11,9 @@ public class ManagerCore {
     private StaffModeManager staffModeManager;
     private FreezeManager freezeManager;
     private VanishManager vanishManager;
+    private InvseeManager invseeManager;
 
-    public ManagerCore(PluginCore pluginCore){
+    public ManagerLoader(PluginCore pluginCore){
         this.pluginCore = pluginCore;
     }
 
@@ -20,6 +22,7 @@ public class ManagerCore {
         freezeManager = new FreezeManager(pluginCore);
         staffModeManager = new StaffModeManager(pluginCore);
         vanishManager = new VanishManager(pluginCore);
+        invseeManager = new InvseeManager(pluginCore);
     }
 
     public SenderManager getSenderManager() {
@@ -36,5 +39,9 @@ public class ManagerCore {
 
     public VanishManager getVanishManager(){
         return vanishManager;
+    }
+
+    public InvseeManager getInvseeManager() {
+        return invseeManager;
     }
 }

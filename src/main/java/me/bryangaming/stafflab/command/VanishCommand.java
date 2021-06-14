@@ -32,12 +32,12 @@ public class VanishCommand implements CommandExecutor{
 
         if (!(sender instanceof Player)) {
             senderManager.sendMessage(sender, "error.no-console");
-            return false;
+            return true;
         }
 
         if (!senderManager.hasPermission(sender, "commands." + command.getName())) {
             senderManager.sendMessage(sender, "error.no-perms");
-            return false;
+            return true;
         }
 
         if (args.length < 1) {
@@ -50,14 +50,14 @@ public class VanishCommand implements CommandExecutor{
                 vanishManager.unVanishPlayer(player);
                 senderManager.sendMessage(sender, "vanish.player.disabled");
             }
-            return false;
+            return true;
         }
-        Player target = Bukkit.getPlayer(args[1]);
+        Player target = Bukkit.getPlayer(args[0]);
 
         if (target == null){
             senderManager.sendMessage(sender, "error.no-online",
                     ReplaceableBuilder.create("%player%", args[1]));
-            return false;
+            return true;
         }
 
         if (!vanishManager.isPlayerVanished(target)) {
@@ -69,6 +69,6 @@ public class VanishCommand implements CommandExecutor{
             senderManager.sendMessage(sender, "vanish.target.disabled",
                     ReplaceableBuilder.create("%player%", target.getName()));
         }
-        return false;
+        return true;
     }
 }

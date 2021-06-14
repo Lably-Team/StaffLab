@@ -5,6 +5,8 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public class InventoryBuilder {
 
     private ItemStack helmet;
@@ -12,14 +14,14 @@ public class InventoryBuilder {
     private ItemStack leggings;
     private ItemStack boots;
 
-    private ItemStack[] items;
+    private List<ItemStack> itemStackList;
 
     public static InventoryBuilder create(){
         return new InventoryBuilder();
     }
 
-    public InventoryBuilder setItems(ItemStack[] items){
-        this.items = items;
+    public InventoryBuilder setItems(List<ItemStack> items){
+        this.itemStackList = items;
         return this;
     }
 
@@ -47,7 +49,14 @@ public class InventoryBuilder {
         Inventory inventory = player.getInventory();
         inventory.clear();
 
-        inventory.addItem(items);
+        for (ItemStack itemStack : itemStackList){
+            if (itemStack == null){
+                continue;
+            }
+
+            inventory.addItem(itemStack);
+        }
+
         EntityEquipment entityEquipment = player.getEquipment();
         entityEquipment.setHelmet(helmet);
         entityEquipment.setChestplate(chestplate);

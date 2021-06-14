@@ -1,5 +1,26 @@
+#
+# Standard Maven .gitignore
+#
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+buildNumber.properties
 
+#
+# IntelliJ
+#
+.iml*
 .idea/
+!.idea/runConfigurations/
 
-*.xml
-*.iml
+#
+# Visual Studio Code
+#
+.settings/
+.classpath
+.factorypath
+.project
+.vscode/ 

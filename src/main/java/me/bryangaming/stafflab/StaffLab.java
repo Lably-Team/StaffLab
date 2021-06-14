@@ -9,6 +9,7 @@ public class StaffLab extends JavaPlugin {
         PluginCore pluginCore = new PluginCore(this);
         pluginCore.init();
         getLogger().info("StaffLab by: " + getDescription().getAuthors().get(0));
+        getLogger().info("If you want support, join in: https://discord.gg/wpSh4Bf4Es");
     }
 
     @Override

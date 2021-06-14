@@ -5,7 +5,7 @@ import me.bryangaming.stafflab.api.Loader;
 
 public class FileLoader implements Loader {
 
-    private StaffLab staffLab;
+    private final StaffLab staffLab;
 
     private FileManager configFile;
     private FileManager messageFile;

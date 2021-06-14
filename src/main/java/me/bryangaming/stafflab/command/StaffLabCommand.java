@@ -3,7 +3,7 @@ package me.bryangaming.stafflab.command;
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.loader.file.FileLoader;
 import me.bryangaming.stafflab.managers.SenderManager;
-import me.bryangaming.stafflab.module.DataModule;
+import me.bryangaming.stafflab.loader.DataLoader;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,8 +33,8 @@ public class StaffLabCommand implements CommandExecutor {
         files.getConfigFile().reload();
         files.getMessagesFile().reload();
 
-        DataModule dataModule = new DataModule(pluginCore);
-        dataModule.load();
+        DataLoader dataLoader = new DataLoader(pluginCore);
+        dataLoader.load();
         senderManager.sendMessage(sender, "stafflab.message", true);
         return false;
     }

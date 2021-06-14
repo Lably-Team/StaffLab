@@ -17,7 +17,7 @@ public class ServerData {
     private final Map<Integer, ItemBuilder> staffInventoryHashMap = new HashMap<>();
 
 
-    public void putGui(String staffGuiMode, GuiBuilder guiBuilder){
+    public void addPluginGui(String staffGuiMode, GuiBuilder guiBuilder){
         staffListGuiHashMap.put(staffGuiMode, guiBuilder);
     }
 
@@ -37,8 +37,9 @@ public class ServerData {
         return staffListGuiHashMap.get(staffGuiMode);
     }
 
-    public void addInventory(int integer, ItemBuilder itemBuilder){
-        staffInventoryHashMap.put(integer, itemBuilder);
+    public ServerData addPluginItem(int integer, ItemBuilder itemBuilder){
+        staffInventoryHashMap.put(integer - 1, itemBuilder);
+        return this;
     }
 
     public Map<String, GuiBuilder> getData(){

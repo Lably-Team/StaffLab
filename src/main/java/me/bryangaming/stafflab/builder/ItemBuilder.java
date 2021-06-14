@@ -1,8 +1,16 @@
 package me.bryangaming.stafflab.builder;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
@@ -17,7 +25,8 @@ public class ItemBuilder {
     private String itemName;
     private List<String> itemLore;
 
-    private Consumer<InventoryClickEvent> action;
+    private Consumer<InteractBuilder> entityAction;
+    private Consumer<HumanEntity> action;
 
 
     public ItemBuilder(Material material){
@@ -44,12 +53,26 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder setAction(Consumer<InventoryClickEvent> action){
+
+    public ItemBuilder setEntityAction(Consumer<InteractBuilder> entityAction){
+        this.entityAction = entityAction;
+        return this;
+    }
+
+    public ItemBuilder setAction(Consumer<HumanEntity> action){
         this.action = action;
         return this;
     }
 
-    public void callAction(InventoryClickEvent event){
+    public void callEntityAction(InteractBuilder entity){
+        if (entityAction == null) {
+            return;
+        }
+        entityAction.accept(entity);
+    }
+
+
+    public void callAction(HumanEntity event){
         if (action == null){
             return;
         }

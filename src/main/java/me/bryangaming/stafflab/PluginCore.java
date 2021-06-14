@@ -2,12 +2,12 @@ package me.bryangaming.stafflab;
 
 import me.bryangaming.stafflab.api.Core;
 import me.bryangaming.stafflab.api.Loader;
-import me.bryangaming.stafflab.api.Module;
 import me.bryangaming.stafflab.data.ServerData;
 import me.bryangaming.stafflab.loader.CommandLoader;
+import me.bryangaming.stafflab.loader.DataLoader;
 import me.bryangaming.stafflab.loader.EventLoader;
 import me.bryangaming.stafflab.loader.file.FileLoader;
-import me.bryangaming.stafflab.managers.ManagerCore;
+import me.bryangaming.stafflab.loader.ManagerLoader;
 
 public class PluginCore implements Core{
 
@@ -16,7 +16,7 @@ public class PluginCore implements Core{
     private FileLoader fileLoader;
 
     private ServerData serverData;
-    private ManagerCore managerCore;
+    private ManagerLoader managerLoader;
 
     public PluginCore(StaffLab staffLab){
         this.staffLab = staffLab;
@@ -28,12 +28,13 @@ public class PluginCore implements Core{
 
         serverData = new ServerData();
 
-        managerCore = new ManagerCore(this);
-        managerCore.load();
+        managerLoader = new ManagerLoader(this);
+        managerLoader.load();
 
         initLoaders(
                 new CommandLoader(this),
-                new EventLoader(this));
+                new EventLoader(this),
+                new DataLoader(this));
     }
 
 
@@ -43,18 +44,12 @@ public class PluginCore implements Core{
         }
     }
 
-    public void initModules(Module... modules){
-        for (Module module : modules){
-            module.load();
-        }
-    }
-
     public ServerData getServerData(){
         return serverData;
     }
 
-    public ManagerCore getManagers(){
-        return managerCore;
+    public ManagerLoader getManagers(){
+        return managerLoader;
     }
 
     public FileLoader getFiles(){

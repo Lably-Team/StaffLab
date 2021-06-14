@@ -34,13 +34,13 @@ public class VanishManager {
         target.setSilent(true);
         for (Entity entity : target.getNearbyEntities(10,10,10)){
             if (!(entity instanceof Creature)){
-                return;
+                continue;
             }
 
             Creature creature = (Creature) entity;
 
             if (!creature.equals(target)){
-                return;
+                continue;
             }
 
             creature.setTarget(null);
@@ -53,6 +53,7 @@ public class VanishManager {
             player.showPlayer(staffLab, target);
         }
         target.setSilent(false);
+        serverData.removeVanishedPlayer(target);
     }
 
     public boolean isPlayerVanished(Player target){

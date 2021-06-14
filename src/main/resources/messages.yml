@@ -9,10 +9,25 @@ error:
 # Commands
 #
 
+staff:
+  enabled: "&a[Server] &8| &fEnabled staffmode."
+  disabled: "&a[Server] &8| &fDisabled staffmode."
+
 stafflab:
   message:
     - "&a[StaffLab] &8| &fBy BryanGaming."
     - "&8- &fPlugin reloaded."
+
+staffchat:
+  already:
+    enabled: "&a[Server] &8| &fYou already enabled the staff-chat."
+    disabled: "&a[Server] &8| &fYou already disabled the staff-chat."
+  mode:
+    enabled: "&a[Server] &8| &fYou enabled the staff-chat."
+    disabled: "&a[Server] &8| &fYou disabled the staff-chat."
+
+  format: "&a[StaffChat] &8| &a%player% &8: &f%message%."
+
 freeze:
   target: "&a[Server] &8| &fYou froze &a%player%&f."
   message: "&a[Server] &8| You have been frozen! Please open SS!"
@@ -27,21 +42,13 @@ vanish:
   target:
     enabled: "&a[Server] &8| &a%player% &fhave been vanished."
     disabled: "&a[Server] &8| &a%player% &fhave been unvanished."
+
 unfreeze:
   target: "&a[Server] &8| &fYou unfroze &a%player%&f."
   message: "&a[Server] &8| &fYou have been unfrozen."
 
-staffchat:
-  already:
-    enabled: "&a[Server] &8| &fYou already enabled the staff-chat."
-    disabled: "&a[Server] &8| &fYou already disabled the staff-chat."
-  mode:
-    enabled: "&a[Server] &8| &fYou enabled the staff-chat."
-    disabled: "&a[Server] &8| &fYou disabled the staff-chat."
+random-tp:
+  target: "&a[Server] &8| &fYou have been teleported to &a%player%&f."
 
-  format: "&a[StaffChat] &8| &a%player% &8: &f%message%."
-
-
-staff:
-  enabled: "&a[Server] &8| &fEnabled staffmode."
-  disabled: "&a[Server] &8| &fDisabled staffmode."
+invsee:
+  target-no-exists: "&c[Error] &8| &fYou aren't targeting a player."

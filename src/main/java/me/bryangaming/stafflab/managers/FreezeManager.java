@@ -12,6 +12,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.Arrays;
 
 public class FreezeManager {
 
@@ -20,7 +24,7 @@ public class FreezeManager {
 
     private final FileManager messagesFile;
     private final SenderManager senderManager;
-    private int freezeTaskID;
+    private BukkitTask freezeTask;
 
 
     public FreezeManager(PluginCore pluginCore){
@@ -36,7 +40,7 @@ public class FreezeManager {
         EntityEquipment equipment = target.getEquipment();
 
         inventorySaveBuilder = InventoryBuilder.create()
-                .setItems(inventory.getContents())
+                .setItems(Arrays.asList(inventory.getContents()))
                 .setHelmet(equipment.getHelmet())
                 .setChestplate(equipment.getChestplate())
                 .setLeggings(equipment.getLeggings())
@@ -50,12 +54,12 @@ public class FreezeManager {
         target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1000000000 , 100));
         target.setGameMode(GameMode.ADVENTURE);
         target.setCanPickupItems(false);
-        freezeTaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(staffLab, new Runnable() {
-            @Override
-            public void run() {
+        senderManager.sendMessage(target, "freeze.message");
+        freezeTask = Bukkit.getScheduler().runTaskTimer(staffLab, () -> {
+
                 senderManager.sendMessage(target, "freeze.message");
-            }
-        },100,100);
+
+        },100L, 100L);
     }
 
     public void unFreezePlayer(Player target){
@@ -64,18 +68,22 @@ public class FreezeManager {
 
         target.removeMetadata("freeze", staffLab);
         target.removePotionEffect(PotionEffectType.SLOW);
-        target.setGameMode(GameMode.ADVENTURE);
+        target.removePotionEffect(PotionEffectType.JUMP);
+        target.setGameMode(GameMode.SURVIVAL);
         target.setCanPickupItems(true);
-        Bukkit.getScheduler().cancelTask(freezeTaskID);
+        freezeTask.cancel();
         senderManager.sendMessage(target, "unfreeze.message");
     }
 
     public void punishFrozenPlayer(Player target){
+
         target.removeMetadata("freeze", staffLab);
         target.removePotionEffect(PotionEffectType.SLOW);
-        target.setGameMode(GameMode.ADVENTURE);
+        target.removePotionEffect(PotionEffectType.JUMP);
+        target.setGameMode(GameMode.SURVIVAL);
         target.setCanPickupItems(true);
-        Bukkit.getScheduler().cancelTask(freezeTaskID);
+        freezeTask.cancel();
+
         for (String commands : messagesFile.getColoredStringList("freeze.command")){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commands
                     .replace("%player%", target.getName()));

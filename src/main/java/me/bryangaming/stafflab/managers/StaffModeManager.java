@@ -4,15 +4,19 @@ import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.StaffLab;
 import me.bryangaming.stafflab.builder.InventoryBuilder;
 import me.bryangaming.stafflab.data.ServerData;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import java.util.Arrays;
+
 public class StaffModeManager {
 
     private InventoryBuilder inventorySaveBuilder;
+    private GameMode playerGamemode;
 
     private final StaffLab staffLab;
     private final ServerData serverData;
@@ -28,13 +32,17 @@ public class StaffModeManager {
 
     public void enableStaffMode(Player target){
 
-        target.setMetadata("staffmode", new FixedMetadataValue(staffLab, true));
+        this.playerGamemode = target.getGameMode();
+        target.setGameMode(GameMode.ADVENTURE);
+        target.setCanPickupItems(false);
+
+        target.setMetadata("staffguimode", new FixedMetadataValue(staffLab, "normal"));
 
         Inventory inventory = target.getInventory();
         EntityEquipment equipment = target.getEquipment();
 
         inventorySaveBuilder = InventoryBuilder.create()
-                .setItems(inventory.getContents())
+                .setItems(Arrays.asList(inventory.getContents()))
                 .setHelmet(equipment.getHelmet())
                 .setChestplate(equipment.getChestplate())
                 .setLeggings(equipment.getLeggings())
@@ -51,18 +59,23 @@ public class StaffModeManager {
 
     public void disableStaffMode(Player target){
 
-        target.removeMetadata("staffmode", staffLab);
+        target.setGameMode(playerGamemode);
+        target.setCanPickupItems(true);
+        target.removeMetadata("staffguimode", staffLab);
+
         inventorySaveBuilder.givePlayer(target);
         senderManager.sendMessage(target, "staff.disabled");
     }
 
     public void forzeDisableStaffMode(Player target){
 
-        target.removeMetadata("staffmode", staffLab);
+        target.removeMetadata("staffguimode", staffLab);
+        target.setGameMode(playerGamemode);
+        target.setCanPickupItems(true);
         inventorySaveBuilder.givePlayer(target);
     }
 
     public boolean isStaffModeEnabled(Player target){
-        return target.hasMetadata("staffmode");
+        return target.hasMetadata("staffguimode");
     }
 }
