@@ -1,3 +1,10 @@
+# Enable or disable commands
+commands:
+  staff: true
+  staffchat: true
+  vanish: true
+  freeze: true
+  invsee: true
 
 perms:
   commands:
@@ -7,6 +14,7 @@ perms:
     freeze: server.freeze
 
   watch:
+    freeze: server.receive.freeze
     staffchat: server.receive.staffchat
     vanish: server.receive.vanish
 
@@ -14,6 +22,7 @@ perms:
 
 inventory:
   freeze:
+    enabled: true
     id: 1
     material: ICE
 
@@ -23,6 +32,7 @@ inventory:
       - "&fClick to freeze a player."
       - ""
   vanish:
+    enabled: true
     id: 3
     material: EMERALD_BLOCK
 
@@ -31,6 +41,7 @@ inventory:
       - ""
       - "&eClick to toggle vanish!"
   random-tp:
+    enabled: true
     id: 5
     material: REDSTONE_BLOCK
 
@@ -40,6 +51,7 @@ inventory:
       - "&eClick to teleport to a random player!"
 
   invsee:
+    enabled: true
     id: 7
     material: GOLD_BLOCK
 

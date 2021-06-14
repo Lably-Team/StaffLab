@@ -2,18 +2,13 @@ package me.bryangaming.stafflab.listener.inventory;
 
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.StaffLab;
-import me.bryangaming.stafflab.builder.GuiBuilder;
-import me.bryangaming.stafflab.builder.ItemBuilder;
 import me.bryangaming.stafflab.managers.InvseeManager;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-
-import java.util.Map;
 
 public class InventoryCloseListener implements Listener {
 
@@ -31,7 +26,7 @@ public class InventoryCloseListener implements Listener {
         Player player = Bukkit.getPlayer(event.getPlayer().getName());
 
         if (invseeManager.isSeenInventory(player)){
-            invseeManager.removeInvseePlayer(player);
+            invseeManager.disableInventoryMode(player);
         }
 
         if (!player.hasMetadata("staffguimode")){
@@ -43,6 +38,5 @@ public class InventoryCloseListener implements Listener {
             return;
         }
 
-        player.removeMetadata("staffguimode", staffLab);
     }
 }

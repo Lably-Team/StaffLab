@@ -49,12 +49,15 @@ public class InventoryBuilder {
         Inventory inventory = player.getInventory();
         inventory.clear();
 
+        int id = 0;
         for (ItemStack itemStack : itemStackList){
             if (itemStack == null){
+                id++;
                 continue;
             }
 
-            inventory.addItem(itemStack);
+            inventory.setItem(id, itemStack);
+            id++;
         }
 
         EntityEquipment entityEquipment = player.getEquipment();

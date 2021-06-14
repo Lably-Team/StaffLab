@@ -2,9 +2,7 @@ package me.bryangaming.stafflab.listener;
 
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.managers.VanishManager;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;

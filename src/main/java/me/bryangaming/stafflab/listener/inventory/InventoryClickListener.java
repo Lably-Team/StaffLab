@@ -1,20 +1,13 @@
 package me.bryangaming.stafflab.listener.inventory;
 
 import me.bryangaming.stafflab.PluginCore;
-import me.bryangaming.stafflab.StaffLab;
 import me.bryangaming.stafflab.builder.GuiBuilder;
-import me.bryangaming.stafflab.builder.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.Map;
 
@@ -29,6 +22,7 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler()
     public void onCLickEvent(InventoryClickEvent event) {
+
         if (event.getClickedInventory() == null) {
             return;
         }
@@ -45,9 +39,17 @@ public class InventoryClickListener implements Listener {
             return;
         }
 
-        Player player = Bukkit.getPlayerExact(event.getWhoClicked().getName());
+        if (!event.getWhoClicked().hasMetadata("staffguimode")){
+            return;
+        }
 
+        event.setCancelled(true);
+        Player player = Bukkit.getPlayer(event.getWhoClicked().getUniqueId());
         String staffguiMode = player.getMetadata("staffguimode").get(0).asString();
+
+        if (staffguiMode.equalsIgnoreCase("normal")){
+            return;
+        }
 
         int id = player.getInventory().getHeldItemSlot();
 

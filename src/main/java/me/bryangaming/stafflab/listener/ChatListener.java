@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +29,7 @@ public class ChatListener implements Listener {
         }
 
         if (event.getPlayer().hasMetadata("staffchat")) {
-
+            event.setCancelled(true);
             List<Player> playerList = Bukkit.getOnlinePlayers()
                     .stream()
                     .filter(onlinePlayer -> senderManager.hasPermission(onlinePlayer, "watch.staffchat"))

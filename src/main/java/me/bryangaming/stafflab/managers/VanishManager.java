@@ -6,7 +6,6 @@ import me.bryangaming.stafflab.data.ServerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 public class VanishManager {

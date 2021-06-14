@@ -5,7 +5,6 @@ import me.bryangaming.stafflab.StaffLab;
 import me.bryangaming.stafflab.builder.ReplaceableBuilder;
 import me.bryangaming.stafflab.managers.SenderManager;
 import me.bryangaming.stafflab.managers.VanishManager;
-import me.bryangaming.stafflab.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

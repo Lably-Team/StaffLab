@@ -1,8 +1,8 @@
 name: StaffLab
-version: ${project.version}
+version: 1.1
 main: me.bryangaming.stafflab.StaffLab
 author: BryanGaming
-api-version: 1.16
+api-version: 1.13
 
 commands:
   stafflab:

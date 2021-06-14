@@ -6,7 +6,6 @@ import me.bryangaming.stafflab.builder.InventoryBuilder;
 import me.bryangaming.stafflab.data.ServerData;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -34,6 +33,8 @@ public class StaffModeManager {
 
         this.playerGamemode = target.getGameMode();
         target.setGameMode(GameMode.ADVENTURE);
+        target.setFlying(true);
+        target.setAllowFlight(true);
         target.setCanPickupItems(false);
 
         target.setMetadata("staffguimode", new FixedMetadataValue(staffLab, "normal"));

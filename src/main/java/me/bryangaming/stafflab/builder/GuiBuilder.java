@@ -3,7 +3,8 @@ package me.bryangaming.stafflab.builder;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GuiBuilder {
 

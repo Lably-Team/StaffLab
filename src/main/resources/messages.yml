@@ -3,6 +3,7 @@ error:
   no-console: "You can't do this in console."
   no-perms: "&c[Error] &8| &fYou don't have perms to use this command."
   no-args: "&c[Error] &8| &fUnknown args: %n&fUsage: &a%usage%"
+  unknown-args: "&c[Error] &8| &fUnknown args: %n&fUsage: &a%usage%"
   no-online: "&c[Error] &8| &fThe player &a%player% &fis offline."
 
 #
@@ -14,9 +15,15 @@ staff:
   disabled: "&a[Server] &8| &fDisabled staffmode."
 
 stafflab:
-  message:
+  help:
     - "&a[StaffLab] &8| &fBy BryanGaming."
-    - "&8- &fPlugin reloaded."
+    - "&fList of commands:"
+    - "&8- &f/vanish"
+    - "&8- &f/staff"
+    - "&8- &f/staffchat"
+    - "&8- &f/invsee"
+    - "&8- &f/freeze"
+  reload: "&a[StaffLab] &8| &fPlugin reloaded."
 
 staffchat:
   already:
@@ -29,11 +36,15 @@ staffchat:
   format: "&a[StaffChat] &8| &a%player% &8: &f%message%."
 
 freeze:
-  target: "&a[Server] &8| &fYou froze &a%player%&f."
-  message: "&a[Server] &8| You have been frozen! Please open SS!"
-  left: "&a[Server] &8| &fYou left to server, you will be punished."
-  command:
-    - ban %player%
+  sender:
+    message: "&a[Server] &8| &fYou froze &a%player%&f."
+  target:
+    message: "&a[Server] &8| &fYou have been frozen! Please open SS!"
+    left: "&a[Server] &8| &fThe player left the server, he will be punished."
+    command:
+      - ban %player%
+  error:
+    one-player: "&c[Error] &8| &fThere is one player in the server."
 
 vanish:
   player:
@@ -49,6 +60,7 @@ unfreeze:
 
 random-tp:
   target: "&a[Server] &8| &fYou have been teleported to &a%player%&f."
+  one-player: "&c[Error] &8| &fThere is one player in the server."
 
 invsee:
   target-no-exists: "&c[Error] &8| &fYou aren't targeting a player."

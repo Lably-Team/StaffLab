@@ -2,14 +2,11 @@ package me.bryangaming.stafflab.managers;
 
 import me.bryangaming.stafflab.PluginCore;
 import me.bryangaming.stafflab.StaffLab;
-import me.bryangaming.stafflab.builder.InventoryBuilder;
 import me.bryangaming.stafflab.builder.ReplaceableBuilder;
 import me.bryangaming.stafflab.data.ServerData;
 import me.bryangaming.stafflab.loader.file.FileManager;
 import me.bryangaming.stafflab.utils.TextUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class SenderManager {
 

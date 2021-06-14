@@ -16,9 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +66,11 @@ public class DataLoader implements Loader {
                 .setLore(configFile.getColoredStringList("inventory.freeze.lore"))
                 .setAction(event -> {
 
+                    if (Bukkit.getOnlinePlayers().size() < 2){
+                        senderManager.sendMessage(event, "freeze.error.one-player");
+                        return;
+                    }
+
                     Player player = Bukkit.getPlayer(event.getName());
                     player.setMetadata("staffguimode", new FixedMetadataValue(staffLab, "freeze"));
 
@@ -113,7 +116,14 @@ public class DataLoader implements Loader {
 
 
                     List<Player> onlinePlayer = new ArrayList<>(Bukkit.getOnlinePlayers());
-                    event.teleport(onlinePlayer.get(new Random().nextInt(onlinePlayer.size())));
+
+                    if (onlinePlayer.size() < 2){
+                        senderManager.sendMessage(event, "random-tp.left");
+                        return;
+                    }
+
+                    System.out.println(onlinePlayer.size());
+                    event.teleport(onlinePlayer.get(new Random().nextInt(onlinePlayer.size()) - 1));
                     senderManager.sendMessage(event, "random-tp.target",
                             ReplaceableBuilder.create("%player%", event.getName()));
                 });
@@ -143,7 +153,7 @@ public class DataLoader implements Loader {
                         return;
                     }
 
-                    invseeManager.invseePlayer(sender, Bukkit.getPlayer(target.getMetadata("invsee").get(0).asString()));
+                    invseeManager.seePlayerInventory(sender, Bukkit.getPlayer(target.getMetadata("invsee").get(0).asString()));
 
                 });
 

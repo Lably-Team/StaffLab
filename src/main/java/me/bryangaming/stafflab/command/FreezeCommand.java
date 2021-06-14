@@ -50,11 +50,11 @@ public class FreezeCommand implements CommandExecutor {
 
         if (!target.hasMetadata("freeze")) {
             freezeManager.freezePlayer(target);
-            senderManager.sendMessage(sender, "freeze.target",
+            senderManager.sendMessage(sender, "freeze.sender.message",
                     ReplaceableBuilder.create("%player%", target.getName()));
         }else{
             freezeManager.unFreezePlayer(target);
-            senderManager.sendMessage(sender, "unfreeze.target",
+            senderManager.sendMessage(sender, "unfreeze.sender.message",
                     ReplaceableBuilder.create("%player%", target.getName()));
         }
         return false;

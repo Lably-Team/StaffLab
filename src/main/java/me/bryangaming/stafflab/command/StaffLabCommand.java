@@ -1,9 +1,11 @@
 package me.bryangaming.stafflab.command;
 
 import me.bryangaming.stafflab.PluginCore;
+import me.bryangaming.stafflab.builder.ReplaceableBuilder;
+import me.bryangaming.stafflab.loader.DataLoader;
 import me.bryangaming.stafflab.loader.file.FileLoader;
 import me.bryangaming.stafflab.managers.SenderManager;
-import me.bryangaming.stafflab.loader.DataLoader;
+import me.bryangaming.stafflab.utils.TextUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,12 +32,26 @@ public class StaffLabCommand implements CommandExecutor {
             return false;
         }
 
-        files.getConfigFile().reload();
-        files.getMessagesFile().reload();
+        if (args.length < 1){
+            senderManager.sendMessage(sender, "stafflab.help", true);
+            return true;
+        }
 
-        DataLoader dataLoader = new DataLoader(pluginCore);
-        dataLoader.load();
-        senderManager.sendMessage(sender, "stafflab.message", true);
-        return false;
+        switch (args[0]) {
+            case "help":
+                senderManager.sendMessage(sender, "stafflab.help", true);
+                return true;
+            case "reload":
+                files.getConfigFile().reload();
+                files.getMessagesFile().reload();
+                DataLoader dataLoader = new DataLoader(pluginCore);
+                dataLoader.load();
+                senderManager.sendMessage(sender, "stafflab.reload");
+                return true;
+            default:
+                senderManager.sendMessage(sender, "error.unknown-args", ReplaceableBuilder.create("%usage%",
+                        TextUtils.createUsage(command.getName(), "help/reload")));
+        }
+        return true;
     }
 }

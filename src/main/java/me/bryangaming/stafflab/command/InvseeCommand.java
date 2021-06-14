@@ -52,7 +52,7 @@ public class InvseeCommand implements CommandExecutor {
             return false;
         }
 
-        invseeManager.invseePlayer(player, target);
+        invseeManager.seePlayerInventory(player, target);
         return false;
     }
 }

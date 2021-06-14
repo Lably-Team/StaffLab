@@ -2,7 +2,6 @@ package me.bryangaming.stafflab.builder;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 public class InteractBuilder {
 

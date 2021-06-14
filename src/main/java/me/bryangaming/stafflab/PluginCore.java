@@ -6,8 +6,8 @@ import me.bryangaming.stafflab.data.ServerData;
 import me.bryangaming.stafflab.loader.CommandLoader;
 import me.bryangaming.stafflab.loader.DataLoader;
 import me.bryangaming.stafflab.loader.EventLoader;
-import me.bryangaming.stafflab.loader.file.FileLoader;
 import me.bryangaming.stafflab.loader.ManagerLoader;
+import me.bryangaming.stafflab.loader.file.FileLoader;
 
 public class PluginCore implements Core{
 
